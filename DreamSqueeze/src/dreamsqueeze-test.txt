@@ -1,0 +1,147 @@
+import telnetlib
+tn = telnetlib.Telnet("ts439-pro-ii",9090)
+tn.write("player count ?\n")
+print tn.read_eager()
+tn.write("artists 0 135\n")
+print tn.read_eager()
+
+
+
+
+
+artists 0 135 
+id:3 artist:3 Inches of Blood 
+id:5 artist:Accept 
+id:7 artist:Adorned Brood 
+id:181 artist:Alan Menken 
+id:170 artist:Amon Amarth 
+id:8 artist:Amy MacDonald 
+id:9 artist:Andrea Berg 
+id:155 artist:Anthony Horowitz 
+id:10 artist:Apocalyptica 
+id:4 artist:Asp 
+id:11 artist:Atze Schröder 
+id:12 artist:Battelore 
+id:13 artist:Battlelore 
+id:175 artist:Before the Dawn 
+id:24 artist:Bela B. 
+id:173 artist:Biene Maja 
+id:25 artist:Black Messiah 
+id:190 artist:Blind Guardian 
+id:26 artist:Buelent Ceylan 
+id:132 artist:Caillou 
+id:66 artist:Chor der St. Marien-Schule. Moers 
+id:185 artist:Christine Leyser 
+id:182 artist:Christine Leyser & Paula Seife 
+id:28 artist:Cultus Ferox 
+id:29 artist:Dakota Moon 
+id:30 artist:Dave Davis 
+id:33 artist:Demons and Wizards 
+id:32 artist:Demons & Wizards 
+id:37 artist:Detlef Jöcker 
+id:36 artist:Detlev Jöcker 
+id:38 artist:Die Apokalyptischen Reiter 
+id:40 artist:Die �?rzte 
+id:39 artist:Die Tiere auf dem Bauernhof 
+id:41 artist:Dieter Nuhr 
+id:42 artist:Domian 
+id:43 artist:Dr. Med. Eckart von Hirschhausen 
+id:44 artist:Dragonforce 
+id:80 artist:Dreamquest 
+id:144 artist:The Dubliners 
+id:45 artist:Edguy 
+id:46 artist:Elvenking 
+id:171 artist:Ensiferum 
+id:47 artist:Equilibrium 
+id:48 artist:Evanescence 
+id:49 artist:Fiddler's Green 
+id:164 artist:Fiddlers Green 
+id:50 artist:Flogging Molly 
+id:53 artist:Frank und seine Freunde 
+id:56 artist:Fredrik Vahle, Dietlind Grabe 
+id:57 artist:Freedom Call 
+id:58 artist:Fury in the Slaughterhouse 
+id:187 artist:Grace Potter 
+id:59 artist:Gregorian Chants 
+id:60 artist:Haggard 
+id:61 artist:Hammerfall 
+id:62 artist:Hannah Montana 
+id:98 artist:Hans Zimmer 
+id:63 artist:Hasenscheisse 
+id:64 artist:Hennes Bender 
+id:65 artist:Iced Earth 
+id:67 artist:In Extremo 
+id:169 artist:IN LEGEND 
+id:68 artist:J.R.R. Tolkien 
+id:70 artist:James & the Contortions Chance 
+id:71 artist:Jan Hegenberg 
+id:69 artist:JBO 
+id:72 artist:Johann König 
+id:73 artist:Julian Puttins aka. PetrucciFever 
+id:174 artist:Karel Gott 
+id:2 artist:Kein Interpret 
+id:74 artist:Kinderlieder 
+id:75 artist:Knorkator 
+id:135 artist:Knorkator/Holger Klein 
+id:76 artist:Korn 
+id:177 artist:Korpiklaani 
+id:77 artist:Lacrimosa 
+id:191 artist:Legion Of The Damned 
+id:78 artist:Lordi 
+id:162 artist:Louis Amstrong 
+id:79 artist:Luca Turilli 
+id:81 artist:Machine Head 
+id:82 artist:Mamas and the Papas 
+id:83 artist:Manowar 
+id:188 artist:Manuel Straube & Pia Allgaier 
+id:183 artist:Manuel Straube, Tommy Amper, P 
+id:84 artist:Marilyn Manson 
+id:85 artist:Mario Barth 
+id:87 artist:Megaherz 
+id:88 artist:Menowin Fröhlich 
+id:89 artist:Metallica 
+id:90 artist:Michael Mittermeier 
+id:184 artist:Monrose 
+id:91 artist:Mr.Irish 
+id:92 artist:Nightwish 
+id:35 artist:OST 7 Zwerge 
+id:142 artist:Ozzy Osbourne 
+id:143 artist:Ozzy Osbourne - Greatest hits (2009) 
+id:93 artist:Paradise Lost 
+id:94 artist:Patrick Swayze 
+id:95 artist:Paul Panzer 
+id:186 artist:Pia Allgaier 
+id:96 artist:Pirates of the Caribbean 
+id:176 artist:Primordial 
+id:111 artist:Prinzessin Lillifee 
+id:112 artist:Rabenschrey 
+id:113 artist:Rammstein 
+id:114 artist:Revolverheld 
+id:129 artist:Rhapsody 
+id:130 artist:Rhapsody of Fire 
+id:115 artist:Rob Zombie 
+id:116 artist:Sabaton 
+id:119 artist:Saltatio Mortis 
+id:120 artist:Schandmaul 
+id:121 artist:Sebastian Hämer 
+id:178 artist:Shaman 
+id:122 artist:Slayer 
+id:123 artist:Sonata Arctica 
+id:124 artist:Soultans 
+id:125 artist:Spongebob 
+id:126 artist:Subway to Sally 
+id:189 artist:Suidakra 
+id:192 artist:Sycronomica 
+id:127 artist:Ten Masked Men 
+id:128 artist:Tenacious D 
+id:97 artist:Tiesto 
+id:156 artist:Turisas 
+id:157 artist:Unheilig 
+id:158 artist:Uwu Lena 
+id:168 artist:Van Canto 
+id:145 artist:Various Artists 
+id:159 artist:Volker Rosin 
+id:165 artist:Wintersun 
+id:166 artist:Wolfchant 
+id:160 artist:Xavier Naidoo 
+id:161 artist:XIV Dark Centuries count:135

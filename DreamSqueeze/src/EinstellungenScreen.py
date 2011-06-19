@@ -20,7 +20,7 @@ class EinstellungenScreen(Screen):
         mainmenulist.append(("Synchronisieren", "loadSynchronisierenScreen"))
         mainmenulist.append(("Erweitert", "loadErweitertScreen"))
         Screen.__init__(self, session)
-        self["playername"] = Label("playername")
+        self["playername"] = Label("Einstellungen")
         self["mainmenulist"] = MenuList(mainmenulist)
         self["statusbar"] = Label("test")
         self["myActionMap"] = ActionMap(["SetupActions"],
@@ -35,12 +35,12 @@ class EinstellungenScreen(Screen):
             if returnValue is "loadSqueezeboxNameScreen":
                 print returnValue
             elif returnValue is "loadPlayerwaehlenScreen":
-                 print returnValue
+                print returnValue
             elif returnValue is "loadSynchronisierenScreen":
-                 print returnValue
+                print returnValue
             elif returnValue is "loadErweitertScreen":
-                 print returnValue
-                 self.session.open(EinstellungenErweitertScreen)
+                print returnValue
+                self.session.open(EinstellungenErweitertScreen)
             else:
                 print "\n[MyShPrombt] cancel\n"
                 self.close(None)

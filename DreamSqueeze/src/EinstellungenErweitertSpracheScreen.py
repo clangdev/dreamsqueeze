@@ -19,7 +19,7 @@ class EinstellungenErweitertSpracheScreen(Screen):
         mainmenulist.append(("Deutsch", "setDeutsch"))
         mainmenulist.append(("Englisch", "setEnglisch"))
         Screen.__init__(self, session)
-        self["playername"] = Label("playername")
+        self["playername"] = Label("Sprache")
         self["mainmenulist"] = MenuList(mainmenulist)
         self["statusbar"] = Label("test")
         self["myActionMap"] = ActionMap(["SetupActions"],

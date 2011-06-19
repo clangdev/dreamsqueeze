@@ -1,8 +1,6 @@
-from Components.ActionMap import ActionMap
-from Components.Label import Label
 from DreamSqueeze import DreamSqueeze
 from Plugins.Plugin import PluginDescriptor
-from Screens.Screen import Screen
+
 
 
 

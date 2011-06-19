@@ -3,6 +3,8 @@ from Components.MenuList import MenuList
 from Screens.Screen import Screen
 from Components.Label import Label
 from EinstellungenScreen import EinstellungenScreen
+from DreamSqueezeConfig import DreamSqueezeConfig 
+from SBSScreen import SBSScreen
 
 class DreamSqueeze(Screen):
     skin = """<screen position="center,center" size="1024,576" title="" flags="wfNoBorder">
@@ -13,7 +15,7 @@ class DreamSqueeze(Screen):
 
     def __init__(self, session, args=0):
         self.session = session
-        
+        config=DreamSqueezeConfig(self.session, 0)
         
         
         
@@ -24,7 +26,7 @@ class DreamSqueeze(Screen):
         mainmenulist.append(("Einstellungen", "loadSettingsScreen"))
         Screen.__init__(self, session)
         
-        self["playername"] = Label("playername")
+        self["playername"] = Label(config.getPlayername)
         self["mainmenulist"] = MenuList(mainmenulist)
         self["statusbar"] = Label("test")
         self["myActionMap"] = ActionMap(["SetupActions"],
@@ -38,13 +40,14 @@ class DreamSqueeze(Screen):
         if returnValue is not None:
             if returnValue is "loadPersonalMusicScreen":
                 print returnValue
+                self.session.open(SBSScreen)
             elif returnValue is "loadInternetRadioScreen":
-                 print returnValue
+                print returnValue
             elif returnValue is "loadFavoritesScreen":
-                 print returnValue
+                print returnValue
             elif returnValue is "loadSettingsScreen":
-                 print returnValue
-                 self.session.open(EinstellungenScreen)
+                print returnValue
+                self.session.open(EinstellungenScreen)
             else:
                 print "\n[MyShPrombt] cancel\n"
                 self.close(None)

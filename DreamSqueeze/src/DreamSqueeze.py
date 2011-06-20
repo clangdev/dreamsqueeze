@@ -1,10 +1,12 @@
 from Components.ActionMap import ActionMap
-from Components.MenuList import MenuList
-from Screens.Screen import Screen
 from Components.Label import Label
+from Components.MenuList import MenuList
+from DreamSqueezeConfig import DreamSqueezeConfig
 from EinstellungenScreen import EinstellungenScreen
-from DreamSqueezeConfig import DreamSqueezeConfig 
 from SBSScreen import SBSScreen
+from Screens.Screen import Screen
+
+
 
 class DreamSqueeze(Screen):
     skin = """<screen position="center,center" size="1024,576" title="" flags="wfNoBorder">
@@ -15,9 +17,8 @@ class DreamSqueeze(Screen):
 
     def __init__(self, session, args=0):
         self.session = session
-        config=DreamSqueezeConfig(self.session, 0)
-        
-        
+        config=DreamSqueezeConfig(self.session)
+        #config.savePlayername("DreamSqueezebox");
         
         mainmenulist = []
         mainmenulist.append(("Eigene Musik", "loadPersonalMusicScreen"))
@@ -26,7 +27,7 @@ class DreamSqueeze(Screen):
         mainmenulist.append(("Einstellungen", "loadSettingsScreen"))
         Screen.__init__(self, session)
         
-        self["playername"] = Label(config.getPlayername)
+        self["playername"] = Label(config.getPlayername())
         self["mainmenulist"] = MenuList(mainmenulist)
         self["statusbar"] = Label("test")
         self["myActionMap"] = ActionMap(["SetupActions"],

@@ -21,7 +21,7 @@ class SBSCLIInterface:
         current=1
         last=0
         while last<nArtists:
-            tn = telnetlib.Telnet("ts439-pro-ii",9090)
+            #tn = telnetlib.Telnet("ts439-pro-ii",9090)
             tn.write("artists "+str(last)+" "+str(current)+"\n")
             tn.read_until("%3A", 20)
             artistid=tn.read_until(" ", 20)

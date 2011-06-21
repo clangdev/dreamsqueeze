@@ -1,10 +1,9 @@
 from Components.ActionMap import ActionMap
 from Components.Label import Label
 from Components.MenuList import MenuList
-from DreamSqueezeConfig import DreamSqueezeConfig
 from EinstellungenErweitertScreen import EinstellungenErweitertScreen
-from Screens.InputBox import InputBox
 from Screens.Screen import Screen
+from PlayernameConfigScreen import PlayernameConfigScreen
 
 
 class EinstellungenScreen(Screen):
@@ -16,7 +15,6 @@ class EinstellungenScreen(Screen):
               
     def __init__(self, session, args=0):
         self.session = session
-        self.config=DreamSqueezeConfig(self.session)
         mainmenulist = []
         mainmenulist.append(("Squeezebox-Name", "loadSqueezeboxNameScreen"))
         mainmenulist.append(("Player waehlen", "loadPlayerwaehlenScreen"))
@@ -37,11 +35,7 @@ class EinstellungenScreen(Screen):
         if returnValue is not None:
             if returnValue is "loadSqueezeboxNameScreen":
                 print returnValue
-                i=InputBox();
-                i.setdefault(self.config.getPlayername())
-                i=self.session.open(i)
-                
-                self.config.savePlayername(self)
+                self.session.open(PlayernameConfigScreen)
             elif returnValue is "loadPlayerwaehlenScreen":
                 print returnValue
             elif returnValue is "loadSynchronisierenScreen":

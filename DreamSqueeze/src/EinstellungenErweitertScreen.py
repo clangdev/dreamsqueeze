@@ -3,7 +3,7 @@ from Components.MenuList import MenuList
 from Screens.Screen import Screen
 from Components.Label import Label
 from EinstellungenErweitertSpracheScreen import EinstellungenErweitertSpracheScreen
-
+from RemoteMusiksammlungConfigScreen import RemoteMusiksammlungConfigScreen
 
 
 
@@ -33,7 +33,7 @@ class EinstellungenErweitertScreen(Screen):
         returnValue = self["mainmenulist"].l.getCurrentSelection()[1]
         if returnValue is not None:
             if returnValue is "loadRemoteMusiksammlungScreen":
-                print returnValue
+                self.session.open(RemoteMusiksammlungConfigScreen)
             elif returnValue is "loadSpracheScreen":
                 print returnValue
                 self.session.open(EinstellungenErweitertSpracheScreen)

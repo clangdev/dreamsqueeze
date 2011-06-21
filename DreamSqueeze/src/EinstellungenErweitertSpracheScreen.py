@@ -2,7 +2,7 @@ from Components.ActionMap import ActionMap
 from Components.MenuList import MenuList
 from Screens.Screen import Screen
 from Components.Label import Label
-
+from DreamSqueezeConfig import DreamSqueezeConfig
 
 
 
@@ -15,6 +15,7 @@ class EinstellungenErweitertSpracheScreen(Screen):
               
     def __init__(self, session, args=0):
         self.session = session
+        self.config=DreamSqueezeConfig(self.session)
         mainmenulist = []
         mainmenulist.append(("Deutsch", "setDeutsch"))
         mainmenulist.append(("Englisch", "setEnglisch"))
@@ -32,14 +33,13 @@ class EinstellungenErweitertSpracheScreen(Screen):
         returnValue = self["mainmenulist"].l.getCurrentSelection()[1]
         if returnValue is not None:
             if returnValue is "setDeutsch":
-                print returnValue
+                self.config.saveLanguage("de")
             elif returnValue is "setEnglisch":
-                print returnValue
-                
+                self.config.saveLanguage("en")
             else:
                 print "\n[MyShPrombt] cancel\n"
                 self.close(None)
-
+            self.close(None)
         
         
     def cancel(self):

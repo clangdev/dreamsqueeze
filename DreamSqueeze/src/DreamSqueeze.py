@@ -18,8 +18,6 @@ class DreamSqueeze(Screen):
     def __init__(self, session, args=0):
         self.session = session
         config=DreamSqueezeConfig(self.session)
-        #config.savePlayername("DreamSqueezebox");
-        
         mainmenulist = []
         mainmenulist.append(("Eigene Musik", "loadPersonalMusicScreen"))
         mainmenulist.append(("Internetradio", "loadInternetRadioScreen"))

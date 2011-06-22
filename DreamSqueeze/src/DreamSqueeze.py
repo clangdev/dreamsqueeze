@@ -5,8 +5,9 @@ from DreamSqueezeConfig import DreamSqueezeConfig
 from EinstellungenScreen import EinstellungenScreen
 from SBSScreen import SBSScreen
 from Screens.Screen import Screen
-
-
+from enigma import eServiceReference
+from twisted.internet import reactor
+#mal ein Test den MP3-Stram zu laden
 
 class DreamSqueeze(Screen):
     skin = """<screen position="center,center" size="1024,576" title="" flags="wfNoBorder">
@@ -17,7 +18,14 @@ class DreamSqueeze(Screen):
 
     def __init__(self, session, args=0):
         self.session = session
-        config=DreamSqueezeConfig(self.session)
+        config = DreamSqueezeConfig(self.session)
+        self.oldService = self.session.nav.getCurrentlyPlayingServiceReference()
+        #eServiceReference(4097, 0, "http://ts439-pro-ii:9001/stream.mp3")
+        #mal ein Test den MP3-Stram zu laden
+        reactor.callLater(1, self._delayedPlay, eServiceReference(4097, 0, "http://ts439-pro-ii:9001/stream.mp3"))
+        
+        
+        
         mainmenulist = []
         mainmenulist.append(("Eigene Musik", "loadPersonalMusicScreen"))
         mainmenulist.append(("Internetradio", "loadInternetRadioScreen"))
@@ -55,4 +63,11 @@ class DreamSqueeze(Screen):
         
     def cancel(self):
         print "\n[MyMenu] cancel\n"
+        self.session.nav.playService(self.oldService)
         self.close(None)
+        
+        
+        
+        
+    def _delayedPlay(self, sref):
+        self.session.nav.playService(sref)

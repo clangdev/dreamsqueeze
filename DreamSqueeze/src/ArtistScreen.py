@@ -4,6 +4,7 @@ from Components.MenuList import MenuList
 from Screens.Screen import Screen
 from SBSArtist import SBSArtist
 from SBSCLIInterface import SBSCLIInterface
+from AlbumScreen import AlbumScreen
 
 class ArtistScreen(Screen):
     skin = """<screen position="center,center" size="1024,576" title="" flags="wfNoBorder">
@@ -15,7 +16,7 @@ class ArtistScreen(Screen):
     def __init__(self, session, args=0):
         self.session = session
         self.CLI = SBSCLIInterface(self,"ts439-pro-ii", 9090);
-        self.artistlist = self.CLI.getArtists()
+        self.artistlist = self.CLI.getArtists2()
         mainmenulist = []
         i = 0
         while i < len(self.artistlist):
@@ -36,19 +37,7 @@ class ArtistScreen(Screen):
     def go(self):
         returnValue = self["mainmenulist"].l.getCurrentSelection()[1]
         if returnValue is not None:
-            if returnValue is "loadArtistScreen":
-                print returnValue
-            elif returnValue is "loadAlbumScreen":
-                print returnValue
-            elif returnValue is "loadRandomScreen":
-                print returnValue
-            elif returnValue is "loadPlaylistsScreen":
-                print returnValue
-            elif returnValue is "loadSearchScreen":
-                print returnValue
-            else:
-                print "\n[MyShPrombt] cancel\n"
-                self.close(None)
+            self.session.open(AlbumScreen(self.session, 0, returnValue))
 
         
         

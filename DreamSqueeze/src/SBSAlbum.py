@@ -7,7 +7,8 @@ class SBSAlbum:
         
         
     def getID(self):
-        return self.artistid
+        return self.albumid
     
     def getName(self):
-        return self.artistname
+        return self.albumname
+    

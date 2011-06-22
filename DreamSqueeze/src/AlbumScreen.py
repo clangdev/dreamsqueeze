@@ -12,13 +12,13 @@ class AlbumScreen(Screen):
                 <widget name="statusbar" position="0,536" size="1024,40" zPosition="2" valign=\"center\" halign=\"left\" foregroundColor=\"white\" font=\"Regular;20\" />
               </screen>"""
               
-    def __init__(self, session, args=0,artistid=0):
+    def __init__(self, session, args=0):
         self.session = session
         self.CLI = SBSCLIInterface(self,"ts439-pro-ii", 9090);
-        if artistid>0:
-            self.albumlist = self.CLI.getAlbums2()
+        if args>0:
+            self.albumlist = self.CLI.getgetAlbumsByID(args)
         else:
-            self.albumlist=self.CLI.getAlbumsByID(artistid)    
+            self.albumlist=self.CLI.getAlbums2()
         mainmenulist = []
         i = 0
         while i < len(self.albumlist):
@@ -35,6 +35,9 @@ class AlbumScreen(Screen):
                                          "ok": self.go,
                                          "cancel": self.cancel
                                          }, -1)
+    
+    
+    
         
     def go(self):
         returnValue = self["mainmenulist"].l.getCurrentSelection()[1]

@@ -37,7 +37,11 @@ class ArtistScreen(Screen):
     def go(self):
         returnValue = self["mainmenulist"].l.getCurrentSelection()[1]
         if returnValue is not None:
-            self.session.open(AlbumScreen(self.session, 0, returnValue))
+            args=5
+            a=AlbumScreen(self.session, args)
+# Vielleicht a als Variable übergeben?
+# Wenn args=retzrnValue kommt Greenscreen
+            self.session.open(AlbumScreen)
 
         
         

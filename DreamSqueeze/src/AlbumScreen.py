@@ -14,9 +14,9 @@ class AlbumScreen(Screen):
               
     def __init__(self, session, args=0):
         self.session = session
-        self.CLI = SBSCLIInterface(self,"ts439-pro-ii", 9090);
+        self.CLI = SBSCLIInterface(self.session);
         if args>0:
-            self.albumlist = self.CLI.getgetAlbumsByID(args)
+            self.albumlist = self.CLI.getAlbumsByID(args)
         else:
             self.albumlist=self.CLI.getAlbums2()
         mainmenulist = []

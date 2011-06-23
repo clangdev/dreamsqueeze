@@ -15,7 +15,7 @@ class ArtistScreen(Screen):
               
     def __init__(self, session, args=0):
         self.session = session
-        self.CLI = SBSCLIInterface(self,"ts439-pro-ii", 9090);
+        self.CLI = SBSCLIInterface(self.session);
         self.artistlist = self.CLI.getArtists2()
         mainmenulist = []
         i = 0
@@ -37,11 +37,9 @@ class ArtistScreen(Screen):
     def go(self):
         returnValue = self["mainmenulist"].l.getCurrentSelection()[1]
         if returnValue is not None:
-            args=5
-            a=AlbumScreen(self.session, args)
-# Vielleicht a als Variable übergeben?
-# Wenn args=retzrnValue kommt Greenscreen
-            self.session.open(AlbumScreen)
+# Vielleicht a als Variable bergeben
+# Wenn args=retzunValue kommt Greenscreen
+            self.session.open(AlbumScreen,returnValue)
 
         
         

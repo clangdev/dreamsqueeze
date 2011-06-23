@@ -1,29 +1,28 @@
 from SBSAlbum import SBSAlbum
 from SBSArtist import SBSArtist
 import telnetlib
-
+from DreamSqueezeConfig import DreamSqueezeConfig
 
 
 class SBSCLIInterface:
-    def __init__(self, host, port, username="", password=""):
-        self.host = host
-        self.port = port
-        self.username = username
-        self.password = password
+    def __init__(self, session):
+        self.session=session
+        self.config = DreamSqueezeConfig(self.session)
+        
         
         
     
     
     def getArtists(self):
         lArtists = []
-        tn = telnetlib.Telnet("ts439-pro-ii", 9090)
+        tn = telnetlib.Telnet(self.config.getHost(), self.config.getCLIPort())
         tn.write("info total artists ?\n")
         tn.read_until("info total artists ", 20)
         nArtists = int(tn.read_eager())
         current = 1
         last = 0
         while last < nArtists:
-            tn = telnetlib.Telnet("ts439-pro-ii", 9090)
+            tn = telnetlib.Telnet(self.config.getHost(), self.config.getCLIPort())
             tn.write("artists " + str(last) + " " + str(current) + "\n")
             tn.read_until("%3A", 20)
             artistid = tn.read_until(" ", 20)
@@ -39,14 +38,14 @@ class SBSCLIInterface:
     
     def getArtists2(self):
         lArtists = []
-        tn = telnetlib.Telnet("ts439-pro-ii", 9090)
+        tn = telnetlib.Telnet(self.config.getHost(), self.config.getCLIPort())
         tn.write("info total artists ?\n")
         tn.read_until("info total artists ", 20)
         nArtists = int(tn.read_eager())
        
        
        
-        tn = telnetlib.Telnet("ts439-pro-ii", 9090)
+        tn = telnetlib.Telnet(self.config.getHost(), self.config.getCLIPort())
         tn.write("artists 0 " + str(nArtists)+"\n")
         response = tn.read_until("count", 20)
         tn.close()
@@ -65,7 +64,7 @@ class SBSCLIInterface:
     
     def getAlbums(self, artistid="0"):
         lAlbums = []
-        tn = telnetlib.Telnet("ts439-pro-ii", 9090)
+        tn = telnetlib.Telnet(self.config.getHost(), self.config.getCLIPort())
         tn.write("info total albums ")
         if int(artistid) > 0:
             tn.write("artist_id:" + str(artistid) + " ?\n")
@@ -77,7 +76,7 @@ class SBSCLIInterface:
         current = 1
         last = 0
         while last < nAlbums:
-            tn = telnetlib.Telnet("ts439-pro-ii", 9090)
+            tn = telnetlib.Telnet(self.config.getHost(), self.config.getCLIPort())
             tn.write("albums " + str(last) + " " + str(current) + " ")
             if int(artistid) > 0:
                 tn.write("artist_id:" + str(artistid) + " ?\n")
@@ -97,7 +96,7 @@ class SBSCLIInterface:
 
     def getAlbums2(self):
         lAlbums = []
-        tn = telnetlib.Telnet("ts439-pro-ii", 9090)
+        tn = telnetlib.Telnet(self.config.getHost(), self.config.getCLIPort())
         tn.write("info total albums ?\n")
         tn.read_until("info total albums ")
         nAlbums = int(tn.read_eager())
@@ -119,9 +118,9 @@ class SBSCLIInterface:
 
     def getAlbumsByID(self, artistid):
         lAlbums = []
-        tn = telnetlib.Telnet("ts439-pro-ii", 9090)
-        tn.write("albums 0 1 artist_id:" + str(artistid) + " ?\n")
-        tn.read_until("count ", 20)
+        tn = telnetlib.Telnet(self.config.getHost(), self.config.getCLIPort())
+        tn.write("albums 0 1 artist_id:" + str(artistid) + "\n")
+        tn.read_until("count%3A", 20)
         nAlbums = int(tn.read_eager())
         tn.write("albums 0 " + str(nAlbums)+" artist_id:" + str(artistid) + "\n")
         response = tn.read_until("count", 20)

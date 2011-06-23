@@ -22,7 +22,8 @@ class DreamSqueeze(Screen):
         self.oldService = self.session.nav.getCurrentlyPlayingServiceReference()
         #eServiceReference(4097, 0, "http://ts439-pro-ii:9001/stream.mp3")
         #mal ein Test den MP3-Stram zu laden
-        reactor.callLater(1, self._delayedPlay, eServiceReference(4097, 0, "http://ts439-pro-ii:9001/stream.mp3"))
+        url="http://"+config.getHost()+":"+str(config.getPort())+"/stream.mp3"
+        reactor.callLater(1, self._delayedPlay, eServiceReference(4097, 0, url))
         
         
         

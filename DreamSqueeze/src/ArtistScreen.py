@@ -22,8 +22,17 @@ class ArtistScreen(Screen):
         while i < len(self.artistlist):
             artist=SBSArtist
             artist = self.artistlist[i]
+<<<<<<< .mine
             mainmenulist.append((artist.getName(), artist.getID())) 
             i=i+1
+        size=len(mainmenulist)
+        if int(size) is 0:
+            mainmenulist.append(("Zurueck", "back")) 
+            
+=======
+            mainmenulist.append((artist.getName(), artist.getID())) 
+            i=i+1
+>>>>>>> .r17
         Screen.__init__(self, session)
         self["playername"] = Label("Interpreten")
         self["mainmenulist"] = MenuList(mainmenulist)
@@ -37,10 +46,23 @@ class ArtistScreen(Screen):
     def go(self):
         returnValue = self["mainmenulist"].l.getCurrentSelection()[1]
         if returnValue is not None:
+<<<<<<< .mine
+            if returnValue is "back":
+                print returnValue
+                self.cancel()
+            else:
+# Vielleicht a als Variable bergeben
+# Wenn args=retzunValue kommt Greenscreen
+                self.session.open(AlbumScreen,returnValue)
+        else:
+            print "\n[MyShPrombt] cancel\n"
+            self.close(None)
+=======
 # Vielleicht a als Variable bergeben
 # Wenn args=retzunValue kommt Greenscreen
             self.session.open(AlbumScreen,returnValue)
 
+>>>>>>> .r17
         
         
     def cancel(self):

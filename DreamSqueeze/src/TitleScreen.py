@@ -23,7 +23,7 @@ class TitleScreen(Screen):
         while i < len(self.titlelist):
             title=SBSTitle
             title = self.titlelist[i]
-            mainmenulist.append((title.getName(), title.getID())) 
+            mainmenulist.append((title.getTitle(), title.getID())) 
             i=i+1
         size=len(mainmenulist)
         if int(size) is 0:
@@ -51,6 +51,7 @@ class TitleScreen(Screen):
                 self.cancel()
             else:
                 try:
+                    printl("Local IP: "+socket.getaddrinfo(socket.gethostname(), None)[0][4][0])
                     self.CLI.playTitle(str(socket.getaddrinfo(socket.gethostname(), None)[0][4][0]), returnValue)
                 except Exception,e:
                     printl(e)

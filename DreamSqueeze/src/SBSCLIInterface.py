@@ -1,9 +1,11 @@
+from DreamSqueezeConfig import DreamSqueezeConfig
 from SBSAlbum import SBSAlbum
 from SBSArtist import SBSArtist
-import telnetlib
-from DreamSqueezeConfig import DreamSqueezeConfig
 from SBSTitle import SBSTitle
-
+from __common__ import printl2 as printl
+from enigma import eServiceReference
+from twisted.internet import reactor
+import telnetlib
 
 
 
@@ -146,18 +148,25 @@ class SBSCLIInterface:
 
     def playTitle(self,playerid,id):
         try:
+            printl(playerid)
+            printl(id)
             tn = telnetlib.Telnet(self.config.getHost(), self.config.getCLIPort())
             tn.write("login "+self.config.getUsername()+" "+self.config.getPassword()+"\n")
-            tn.write(self.config.getPlayername()+" playlistcontrol cmd:delete\n")
+            tn.write(playerid+" playlistcontrol cmd:delete\n")
             tn.read_until("count%3A", 20)
             tn.read_eager()
-            tn.write(self.config.getPlayername()+" playlistcontrol cmd:load track_id:"+id+"\n")
+            tn.write(playerid+" playlistcontrol cmd:load track_id:"+str(id)+"\n")
             tn.read_until("count%3A", 20)
             tn.read_eager()
+            try:
+                url="http://"+self.config.getHost()+":"+str(self.config.getPort())+"/stream.mp3"
+                reactor.callLater(1, self._delayedPlay, eServiceReference(4097, 0, url))
+            except Exception, e:
+                printl(e)
         except Exception, e:
             raise e
             
-
+        
 
     
     def utf8ToNormal(self, utfString):

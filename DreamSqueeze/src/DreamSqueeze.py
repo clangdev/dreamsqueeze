@@ -3,12 +3,11 @@ from Components.Label import Label
 from Components.MenuList import MenuList
 from DreamSqueezeConfig import DreamSqueezeConfig
 from EinstellungenScreen import EinstellungenScreen
-from MyErrorScreen import MyErrorScreen
 from SBSScreen import SBSScreen
 from Screens.Screen import Screen
+from __common__ import printl2 as printl
 from enigma import eServiceReference
 from twisted.internet import reactor
-
 
 class DreamSqueeze(Screen):
     skin = """<screen position="center,center" size="1024,576" title="" flags="wfNoBorder">
@@ -26,7 +25,7 @@ class DreamSqueeze(Screen):
                 url="http://"+config.getHost()+":"+str(config.getPort())+"/stream.mp3"
                 reactor.callLater(1, self._delayedPlay, eServiceReference(4097, 0, url))
             except Exception, e:
-                self.session.open(MyErrorScreen,str(e))
+                printl(e)
         
         
         mainmenulist = []

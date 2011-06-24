@@ -3,11 +3,12 @@ from Components.Label import Label
 from Components.MenuList import MenuList
 from DreamSqueezeConfig import DreamSqueezeConfig
 from EinstellungenScreen import EinstellungenScreen
+from MyErrorScreen import MyErrorScreen
 from SBSScreen import SBSScreen
 from Screens.Screen import Screen
 from enigma import eServiceReference
 from twisted.internet import reactor
-#mal ein Test den MP3-Stram zu laden
+
 
 class DreamSqueeze(Screen):
     skin = """<screen position="center,center" size="1024,576" title="" flags="wfNoBorder">
@@ -20,12 +21,12 @@ class DreamSqueeze(Screen):
         self.session = session
         config = DreamSqueezeConfig(self.session)
         self.oldService = self.session.nav.getCurrentlyPlayingServiceReference()
-        #eServiceReference(4097, 0, "http://ts439-pro-ii:9001/stream.mp3")
-        #mal ein Test den MP3-Stram zu laden
         if str(config.getHost())!="":
-            url="http://"+config.getHost()+":"+str(config.getPort())+"/stream.mp3"
-            reactor.callLater(1, self._delayedPlay, eServiceReference(4097, 0, url))
-        
+            try:
+                url="http://"+config.getHost()+":"+str(config.getPort())+"/stream.mp3"
+                reactor.callLater(1, self._delayedPlay, eServiceReference(4097, 0, url))
+            except Exception, e:
+                self.session.open(MyErrorScreen,str(e))
         
         
         mainmenulist = []

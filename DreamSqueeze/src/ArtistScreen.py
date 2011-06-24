@@ -1,10 +1,12 @@
+from AlbumScreen import AlbumScreen
 from Components.ActionMap import ActionMap
 from Components.Label import Label
 from Components.MenuList import MenuList
-from Screens.Screen import Screen
 from SBSArtist import SBSArtist
 from SBSCLIInterface import SBSCLIInterface
-from AlbumScreen import AlbumScreen
+from Screens.Screen import Screen
+#from MyErrorScreen import MyErrorScreen
+from __common__ import printl2 as printl
 
 class ArtistScreen(Screen):
     skin = """<screen position="center,center" size="1024,576" title="" flags="wfNoBorder">
@@ -16,23 +18,22 @@ class ArtistScreen(Screen):
     def __init__(self, session, args=0):
         self.session = session
         self.CLI = SBSCLIInterface(self.session);
-        self.artistlist = self.CLI.getArtists2()
+        self.artistlist=[]
+        try:
+            self.artistlist = self.CLI.getArtists2()
+        except Exception, e:
+            #self.session.open(MyErrorScreen)
+            printl(e)
         mainmenulist = []
         i = 0
         while i < len(self.artistlist):
-            artist=SBSArtist
+            artist = SBSArtist
             artist = self.artistlist[i]
-<<<<<<< .mine
             mainmenulist.append((artist.getName(), artist.getID())) 
-            i=i+1
-        size=len(mainmenulist)
+            i = i + 1
+        size = len(mainmenulist)
         if int(size) is 0:
-            mainmenulist.append(("Zurueck", "back")) 
-            
-=======
-            mainmenulist.append((artist.getName(), artist.getID())) 
-            i=i+1
->>>>>>> .r17
+            mainmenulist.append(("Zurueck", "loadback")) 
         Screen.__init__(self, session)
         self["playername"] = Label("Interpreten")
         self["mainmenulist"] = MenuList(mainmenulist)
@@ -45,24 +46,18 @@ class ArtistScreen(Screen):
         
     def go(self):
         returnValue = self["mainmenulist"].l.getCurrentSelection()[1]
+        printl(returnValue)
         if returnValue is not None:
-<<<<<<< .mine
-            if returnValue is "back":
-                print returnValue
+            if str(returnValue) is "loadback":
                 self.cancel()
             else:
 # Vielleicht a als Variable bergeben
 # Wenn args=retzunValue kommt Greenscreen
-                self.session.open(AlbumScreen,returnValue)
+                self.session.open(AlbumScreen, returnValue)
         else:
             print "\n[MyShPrombt] cancel\n"
             self.close(None)
-=======
-# Vielleicht a als Variable bergeben
-# Wenn args=retzunValue kommt Greenscreen
-            self.session.open(AlbumScreen,returnValue)
 
->>>>>>> .r17
         
         
     def cancel(self):

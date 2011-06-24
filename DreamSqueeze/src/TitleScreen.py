@@ -1,9 +1,11 @@
 from Components.ActionMap import ActionMap
 from Components.Label import Label
 from Components.MenuList import MenuList
-from Screens.Screen import Screen
 from SBSCLIInterface import SBSCLIInterface
-from SBSAlbum import SBSAlbum
+from SBSTitle import SBSTitle
+from Screens.Screen import Screen
+from __common__ import printl2 as printl
+import socket
 
 class TitleScreen(Screen):
     skin = """<screen position="center,center" size="1024,576" title="" flags="wfNoBorder">
@@ -15,20 +17,19 @@ class TitleScreen(Screen):
     def __init__(self, session, args=0):
         self.session = session
         self.CLI = SBSCLIInterface(self.session);
-        if args>0:
-            self.albumlist = self.CLI.getAlbumsByID(args)
-        else:
-            self.albumlist=self.CLI.getAlbums2()
+        self.titlelist = self.CLI.getTitlesByID(args)
         mainmenulist = []
         i = 0
-        while i < len(self.albumlist):
-            album=SBSAlbum
-            album = self.albumlist[i]
-            mainmenulist.append((album.getName(), album.getID())) 
+        while i < len(self.titlelist):
+            title=SBSTitle
+            title = self.titlelist[i]
+            mainmenulist.append((title.getName(), title.getID())) 
             i=i+1
         size=len(mainmenulist)
         if int(size) is 0:
-            mainmenulist.append(("Zurueck", "back")) 
+            mainmenulist.append(("Zurueck", "loadback")) 
+        elif int(size) > 1:
+            mainmenulist.append(("Alle abspielen", "playAll")) 
         Screen.__init__(self, session)
         self["playername"] = Label("Interpreten")
         self["mainmenulist"] = MenuList(mainmenulist)
@@ -45,10 +46,15 @@ class TitleScreen(Screen):
     def go(self):
         returnValue = self["mainmenulist"].l.getCurrentSelection()[1]
         if returnValue is not None:
-            if returnValue is "back":
+            if returnValue is "loadback":
                 print returnValue
                 self.cancel()
-            #else:
+            else:
+                try:
+                    self.CLI.playTitle(str(socket.getaddrinfo(socket.gethostname(), None)[0][4][0]), returnValue)
+                except Exception,e:
+                    printl(e)
+                    
 # Vielleicht a als Variable bergeben
 # Wenn args=retzunValue kommt Greenscreen
                 #self.session.open(TitleScreen,returnValue)

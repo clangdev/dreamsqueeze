@@ -55,14 +55,16 @@ class AlbumScreen(Screen):
         
     def go(self):
         returnValue = self["mainmenulist"].l.getCurrentSelection()[1]
+        printl(returnValue)
         if returnValue is not None:
             if str(returnValue) is "loadback":
-                self.cancel()
+                printl("I Want To Cancel!!", self, "D")
+                self.close(None)
             else:
 # Vielleicht a als Variable bergeben
 # Wenn args=retzunValue kommt Greenscreen
-                self.session.open(TitleScreen, returnValue)
-            
+                #self.session.open(TitleScreen, returnValue)
+                printl("Öffne TitleScreen mit Paramateter:"+returnValue,self,"D")
         else:
             print "\n[MyShPrombt] cancel\n"
             self.close(None)

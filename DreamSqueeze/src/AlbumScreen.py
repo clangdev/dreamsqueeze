@@ -58,13 +58,11 @@ class AlbumScreen(Screen):
         printl(returnValue)
         if returnValue is not None:
             if str(returnValue) is "loadback":
-                printl("I Want To Cancel!!", self, "D")
-                self.close(None)
+                self.cancel()
             else:
 # Vielleicht a als Variable bergeben
 # Wenn args=retzunValue kommt Greenscreen
-                #self.session.open(TitleScreen, returnValue)
-                printl("Öffne TitleScreen mit Paramateter:"+returnValue,self,"D")
+                self.session.open(TitleScreen, returnValue)
         else:
             print "\n[MyShPrombt] cancel\n"
             self.close(None)

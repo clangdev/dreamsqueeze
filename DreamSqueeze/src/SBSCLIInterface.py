@@ -23,6 +23,7 @@ class SBSCLIInterface:
             try:
                 tn = telnetlib.Telnet(self.config.getHost(), self.config.getCLIPort())
                 tn.write("login " + self.config.getUsername() + " " + self.config.getPassword() + "\n")
+                tn.read_eager();
                 tn.write("info total artists ?\n")
                 tn.read_until("info total artists ", 20)
                 nArtists = int(tn.read_eager())
@@ -59,6 +60,7 @@ class SBSCLIInterface:
             try:
                 tn = telnetlib.Telnet(self.config.getHost(), self.config.getCLIPort())
                 tn.write("login " + self.config.getUsername() + " " + self.config.getPassword() + "\n")
+                tn.read_eager();
                 tn.write("info total albums ?\n")
                 tn.read_until("info total albums ")
                 nAlbums = int(tn.read_eager())
@@ -89,6 +91,7 @@ class SBSCLIInterface:
             try:
                 tn = telnetlib.Telnet(self.config.getHost(), self.config.getCLIPort())
                 tn.write("login " + self.config.getUsername() + " " + self.config.getPassword() + "\n")
+                tn.read_eager();
                 tn.write("albums 0 1 artist_id:" + str(artistid) + "\n")
                 tn.read_until("count%3A", 20)
                 nAlbums = int(tn.read_eager())
@@ -120,6 +123,7 @@ class SBSCLIInterface:
             try:
                 tn = telnetlib.Telnet(self.config.getHost(), self.config.getCLIPort())
                 tn.write("login " + self.config.getUsername() + " " + self.config.getPassword() + "\n")
+                tn.read_eager();
                 tn.write("titles 0 1 album_id:" + str(artistid) + "\n")
                 tn.read_until("count%3A", 20)
                 nAlbums = int(tn.read_eager())
@@ -161,6 +165,7 @@ class SBSCLIInterface:
             printl(id)
             tn = telnetlib.Telnet(self.config.getHost(), self.config.getCLIPort())
             tn.write("login " + self.config.getUsername() + " " + self.config.getPassword() + "\n")
+            tn.read_eager();
             tn.write(playerid + " playlistcontrol cmd:delete\n")
             tn.read_until("count%3A", 20)
             tn.read_eager()
@@ -169,8 +174,8 @@ class SBSCLIInterface:
             tn.read_eager()
             try:
                 url = "http://" + self.config.getHost() + ":" + str(self.config.getPort()) + "/stream.mp3"
-                reactor.callLater(0, self._delayedPlay, eServiceReference(None))
-                reactor.callLater(0, self._delayedPlay, eServiceReference(4097, 0, url))
+                reactor.callLater(1, self._delayedPlay, eServiceReference(4097, 0, url))
+                #self.session.nav.playService(eServiceReference(4097, 0, url))
             except Exception, e:
                 printl(e)
         except Exception, e:

@@ -23,7 +23,8 @@ class DreamSqueeze(Screen):
         if str(config.getHost())!="":
             try:
                 url="http://"+config.getHost()+":"+str(config.getPort())+"/stream.mp3"
-                reactor.callLater(0, self._delayedPlay, eServiceReference(4097, 0, url))
+                reactor.callLater(1, self._delayedPlay, eServiceReference(4097, 0, url))
+                #self.session.nav.playService(eServiceReference(4097, 0, url))
             except Exception, e:
                 printl(e)
         

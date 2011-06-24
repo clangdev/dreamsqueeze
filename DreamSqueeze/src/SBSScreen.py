@@ -17,7 +17,7 @@ class SBSScreen(Screen):
         self.session = session
         mainmenulist = []
         mainmenulist.append(("Interpreten", "loadArtistScreen"))
-        mainmenulist.append(("Alben", "loadAlbumScreen"))
+        #mainmenulist.append(("Alben", "loadAlbumScreen"))
         mainmenulist.append(("Zufallsmix", "loadRandomScreen"))
         mainmenulist.append(("Wiedergabelisten", "loadPlaylistsScreen"))
         mainmenulist.append(("Suchen", "loadSearchScreen"))

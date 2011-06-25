@@ -9,6 +9,7 @@ from __common__ import printl2 as printl
 from enigma import eServiceReference
 from twisted.internet import reactor
 
+
 class DreamSqueeze(Screen):
     skin = """<screen position="center,center" size="1024,576" title="" flags="wfNoBorder">
                <widget name="playername" position="0,0" size="1024,40" zPosition="2" valign=\"center\" halign=\"left\" foregroundColor=\"white\" font=\"Regular;20\" />
@@ -20,17 +21,21 @@ class DreamSqueeze(Screen):
         self.session = session
         config = DreamSqueezeConfig(self.session)
         self.oldService = self.session.nav.getCurrentlyPlayingServiceReference()
-        if str(config.getHost())!="":
+        if str(config.getHost()) != "":
             try:
-                url="http://"+config.getHost()+":"+str(config.getPort())+"/stream.mp3"
+                url = "http://" + config.getHost() + ":" + str(config.getPort()) + "/stream.mp3?bitrate=96"
                 reactor.callLater(1, self._delayedPlay, eServiceReference(4097, 0, url))
                 #self.session.nav.playService(eServiceReference(4097, 0, url))
             except Exception, e:
                 printl(e)
         
         
+        
+        
+        
+        
         mainmenulist = []
-        if str(config.getHost())!="":
+        if str(config.getHost()) != "":
             mainmenulist.append(("Eigene Musik", "loadPersonalMusicScreen"))
             mainmenulist.append(("Internetradio", "loadInternetRadioScreen"))
             mainmenulist.append(("Favoriten", "loadFavoritesScreen"))
@@ -75,3 +80,11 @@ class DreamSqueeze(Screen):
         
     def _delayedPlay(self, sref):
         self.session.nav.playService(sref)
+        
+        
+        
+        
+
+
+
+

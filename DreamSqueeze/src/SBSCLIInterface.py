@@ -162,13 +162,20 @@ class SBSCLIInterface:
                     to = response.find(" duration:", von)
                     album = response[von:to]
                     von = response.find(" duration:", to) + 10
-                    to = response.find(" tracknum:", von)
-                    duration = response[von:to]
-                    von = response.find(" tracknum:", to) + 10
-                    to = response.find(" id:", von)
-                    if to is - 1:
-                        to = response.find(" count", von)
-                    tracknum = response[von:to]
+                    if(nTitles>1):
+                        to = response.find(" tracknum:", von)
+                        duration = response[von:to]
+                        von = response.find(" tracknum:", to) + 10
+                        to = response.find(" id:", von)
+                        if to is - 1:
+                            to = response.find(" count", von)
+                            tracknum = response[von:to]
+                    else:
+                        to = response.find(" id:", von)
+                        if to is - 1:
+                            to = response.find(" count", von)
+                            duration = response[von:to]
+                        tracknum="1"
                     #title = self.utf8ToNormal(title)
                     lTitles.append(SBSTitle(id, title, genre, artist, album, duration, tracknum))
                     index = response.find(" id:", to)

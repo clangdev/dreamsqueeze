@@ -21,15 +21,20 @@ class DreamSqueeze(Screen):
         self.session = session
         config = DreamSqueezeConfig(self.session)
         self.oldService = self.session.nav.getCurrentlyPlayingServiceReference()
-        if str(config.getHost()) != "":
+        if config.useLogin() is True:
+            try:
+                url = "http://"+config.getUsername()+":"+config.getPassword()+"@" + config.getHost() + ":" + str(config.getPort()) + "/stream.mp3?bitrate=96"
+                reactor.callLater(1, self._delayedPlay, eServiceReference(4097, 0, url))
+                #self.session.nav.playService(eServiceReference(4097, 0, url))
+            except Exception, e:
+                printl(e)
+        else:
             try:
                 url = "http://" + config.getHost() + ":" + str(config.getPort()) + "/stream.mp3?bitrate=96"
                 reactor.callLater(1, self._delayedPlay, eServiceReference(4097, 0, url))
                 #self.session.nav.playService(eServiceReference(4097, 0, url))
             except Exception, e:
                 printl(e)
-        
-        
         
         
         

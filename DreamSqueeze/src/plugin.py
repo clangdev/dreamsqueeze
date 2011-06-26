@@ -4,8 +4,6 @@ from Plugins.Plugin import PluginDescriptor
 
 
 
-
-    
 def main(session, **kwargs):
     session.open(DreamSqueeze)
       

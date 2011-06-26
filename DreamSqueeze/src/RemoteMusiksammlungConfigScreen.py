@@ -20,7 +20,7 @@ class RemoteMusiksammlungConfigScreen(ConfigListScreen,Screen):
         self.list.append(getConfigListEntry(_("Server CLI port: "), config.plugins.DreamSqueeze.cliport))
         self.list.append(getConfigListEntry(_("Username: "), config.plugins.DreamSqueeze.username))
         self.list.append(getConfigListEntry(_("Password: "), config.plugins.DreamSqueeze.password))
-        
+        self.list.append(getConfigListEntry(_("Use Username/Password?: "), config.plugins.DreamSqueeze.useLogin))
         ConfigListScreen.__init__(self, self.list)
         self["playername"] = Label("Einstellungen")
         self["statusbar"] = Label("test")

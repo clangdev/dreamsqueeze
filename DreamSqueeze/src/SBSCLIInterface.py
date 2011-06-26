@@ -22,11 +22,12 @@ class SBSCLIInterface:
         if str(self.config.getHost()) != "":
             try:
                 tn = telnetlib.Telnet(self.config.getHost(), self.config.getCLIPort())
-                printl("Trying to Login with " + self.config.getUsername() + " and a pass (len=" + str(len(self.config.getPassword())) + ")")
-                tn.write("login " + self.config.getUsername() + " " + self.config.getPassword() + "\n")
-                d = tn.read_until("******",20)
-                d=d+tn.read_eager()
-                printl(d)
+                if self.config.useLogin() is True:
+                    printl("Trying to Login with " + self.config.getUsername() + " and a pass (len=" + str(len(self.config.getPassword())) + ")")
+                    tn.write("login " + self.config.getUsername() + " " + self.config.getPassword() + "\n")
+                    d = tn.read_until("******",20)
+                    d=d+tn.read_eager()
+                    printl(d)
                 tn.write("info total artists ?\n")
                 tn.read_until("info total artists ", 20)
                 nArtists = int(tn.read_eager())
@@ -62,10 +63,12 @@ class SBSCLIInterface:
         if str(self.config.getHost()) != "":
             try:
                 tn = telnetlib.Telnet(self.config.getHost(), self.config.getCLIPort())
-                printl("Trying to Login with " + self.config.getUsername() + " and a pass (len=" + str(len(self.config.getPassword())) + ")")
-                d = tn.read_until("******",20)
-                d=d+tn.read_eager()
-                printl(d)
+                if self.config.useLogin() is True:
+                    printl("Trying to Login with " + self.config.getUsername() + " and a pass (len=" + str(len(self.config.getPassword())) + ")")
+                    tn.write("login " + self.config.getUsername() + " " + self.config.getPassword() + "\n")
+                    d = tn.read_until("******",20)
+                    d=d+tn.read_eager()
+                    printl(d)
                 tn.write("info total albums ?\n")
                 tn.read_until("info total albums ")
                 nAlbums = int(tn.read_eager())
@@ -96,11 +99,12 @@ class SBSCLIInterface:
         if str(self.config.getHost()) != "":
             try:
                 tn = telnetlib.Telnet(self.config.getHost(), self.config.getCLIPort())
-                printl("Trying to Login with " + self.config.getUsername() + " and a pass (len=" + str(len(self.config.getPassword())) + ")")
-                tn.write("login " + self.config.getUsername() + " " + self.config.getPassword() + "\n")
-                d = tn.read_until("******",20)
-                d=d+tn.read_eager()
-                printl(d)
+                if self.config.useLogin() is True:
+                    printl("Trying to Login with " + self.config.getUsername() + " and a pass (len=" + str(len(self.config.getPassword())) + ")")
+                    tn.write("login " + self.config.getUsername() + " " + self.config.getPassword() + "\n")
+                    d = tn.read_until("******",20)
+                    d=d+tn.read_eager()
+                    printl(d)
                 tn.write("albums 0 1 artist_id:" + str(artistid) + "\n")
                 tn.read_until("count%3A", 20)
                 nAlbums = int(tn.read_eager())
@@ -132,11 +136,12 @@ class SBSCLIInterface:
         if str(self.config.getHost()) != "":
             try:
                 tn = telnetlib.Telnet(self.config.getHost(), self.config.getCLIPort())
-                printl("Trying to Login with " + self.config.getUsername() + " and a pass (len=" + str(len(self.config.getPassword())) + ")")
-                tn.write("login " + self.config.getUsername() + " " + self.config.getPassword() + "\n")
-                d = tn.read_until("******",20)
-                d=d+tn.read_eager()
-                printl(d)
+                if self.config.useLogin() is True:
+                    printl("Trying to Login with " + self.config.getUsername() + " and a pass (len=" + str(len(self.config.getPassword())) + ")")
+                    tn.write("login " + self.config.getUsername() + " " + self.config.getPassword() + "\n")
+                    d = tn.read_until("******",20)
+                    d=d+tn.read_eager()
+                    printl(d)
                 tn.write("titles 0 1 album_id:" + str(albumid) + " sort:tracknum\n")
                 tn.read_until("count%3A", 20)
                 nTitles = int(tn.read_eager())
@@ -162,6 +167,7 @@ class SBSCLIInterface:
                     to = response.find(" duration:", von)
                     album = response[von:to]
                     von = response.find(" duration:", to) + 10
+                    tracknum=""
                     if(nTitles>1):
                         to = response.find(" tracknum:", von)
                         duration = response[von:to]
@@ -183,27 +189,53 @@ class SBSCLIInterface:
                 raise e
         return lTitles
 
-    def playTitle(self, playerid, id):
+    def playTitle(self, playerid, tracklist):
         try:
-            printl("Playing Track_id:" + str(id))
+            tracks=""
+            playindex=0
+            i=0
+            while i<len(tracklist):
+                tracks=tracks+str(tracklist[i][0])
+                if tracklist[i][1] is True:
+                    playindex=str(i)                    
+                i=i+1
+                if i < len(tracklist):
+                    tracks=tracks+","
+                
+            printl("Playing Track-IDs:" + tracks)
             tn = telnetlib.Telnet(self.config.getHost(), self.config.getCLIPort())
-            printl("Trying to Login with " + self.config.getUsername() + " and a pass (len=" + str(len(self.config.getPassword())))
-            tn.write("login " + self.config.getUsername() + " " + self.config.getPassword() + "\n")
-            d = tn.read_until("******",20)
-            d=d+tn.read_eager()
-            printl(d)
+            if self.config.useLogin() is True:
+                    printl("Trying to Login with " + self.config.getUsername() + " and a pass (len=" + str(len(self.config.getPassword())) + ")")
+                    tn.write("login " + self.config.getUsername() + " " + self.config.getPassword() + "\n")
+                    d = tn.read_until("******",20)
+                    d=d+tn.read_eager()
+                    printl(d)
             tn.write(str(playerid) + " playlistcontrol cmd:delete\n")
             tn.read_until("count%3A", 20)
             tn.read_eager()
-            tn.write(str(playerid) + " playlistcontrol cmd:load track_id:" + str(id) + "\n")
+            tn.write(str(playerid) + " playlistcontrol cmd:load track_id:" + tracks + "\n")
             tn.read_until("count%3A", 20)
             tn.read_eager()
-            try:
-                url = "http://" + self.config.getHost() + ":" + str(self.config.getPort()) + "/stream.mp3?bitrate=96"
-                reactor.callLater(1, self._delayedPlay, eServiceReference(4097, 0, url))
-                #self.session.nav.playService(eServiceReference(4097, 0, url))
-            except Exception, e:
-                printl(e)
+            tn.write(str(playerid) + " playlist index "+playindex+"\n")
+            tn.read_until(str(playerid) + " playlist index "+playindex, 20)
+            tn.read_eager()
+            tn.close()
+            if self.config.useLogin() is True:
+                try:
+                    url = "http://"+self.config.getUsername()+":"+self.config.getPassword()+"@" + self.config.getHost() + ":" + str(self.config.getPort()) + "/stream.mp3?bitrate=96"
+                    reactor.callLater(1, self._delayedPlay, eServiceReference(4097, 0, url))
+                    #self.session.nav.playService(eServiceReference(4097, 0, url))
+                except Exception, e:
+                    printl(e)
+                    raise e
+            else:
+                try:
+                    url = "http://" + self.config.getHost() + ":" + str(self.config.getPort()) + "/stream.mp3?bitrate=96"
+                    reactor.callLater(1, self._delayedPlay, eServiceReference(4097, 0, url))
+                    #self.session.nav.playService(eServiceReference(4097, 0, url))
+                except Exception, e:
+                    printl(e)
+                    raise e
         except Exception, e:
             raise e
             

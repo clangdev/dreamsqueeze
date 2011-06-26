@@ -1,5 +1,5 @@
 from Components.config import config, ConfigSubsection, ConfigInteger, \
-    ConfigText
+    ConfigText, ConfigYesNo
 
 
 
@@ -9,6 +9,7 @@ class DreamSqueezeConfig():
     def __init__(self, session, args=0):
         self.session = session
         config.plugins.DreamSqueeze = ConfigSubsection()
+        config.plugins.DreamSqueeze.useLogin = ConfigYesNo(False)
         config.plugins.DreamSqueeze.username = ConfigText("", fixed_size=False)
         config.plugins.DreamSqueeze.password = ConfigText("", fixed_size=False)
         config.plugins.DreamSqueeze.host = ConfigText("", fixed_size=False)
@@ -42,3 +43,6 @@ class DreamSqueezeConfig():
         config.plugins.DreamSqueeze.language.value=language
         config.plugins.DreamSqueeze.language.save()
     
+    def useLogin(self):
+        return config.plugins.DreamSqueeze.useLogin.value
+        

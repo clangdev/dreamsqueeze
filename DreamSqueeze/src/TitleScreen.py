@@ -28,8 +28,6 @@ class TitleScreen(Screen):
         size=len(mainmenulist)
         if int(size) is 0:
             mainmenulist.append(("Zurueck", "loadback")) 
-        elif int(size) > 1:
-            mainmenulist.append(("Alle abspielen", "playAll")) 
         Screen.__init__(self, session)
         self["playername"] = Label("Interpreten")
         self["mainmenulist"] = MenuList(mainmenulist)
@@ -52,9 +50,22 @@ class TitleScreen(Screen):
             else:
                 try:
                     printl("Local IP: "+socket.getaddrinfo(socket.gethostname(), None)[0][4][0])
-                    self.CLI.playTitle(str(socket.getaddrinfo(socket.gethostname(), None)[0][4][0]), returnValue)
+                    
+                    tracklist=[]
+                    i=0
+                    while i < len(self.titlelist):
+                        title=SBSTitle
+                        title = self.titlelist[i]
+                        if returnValue is title.getID():
+                            tracklist.append((title.getID(),True))
+                        else:
+                            tracklist.append((title.getID(),False))
+                        i=i+1
+                    
+                    self.CLI.playTitle(str(socket.getaddrinfo(socket.gethostname(), None)[0][4][0]), tracklist)
                 except Exception,e:
-                    printl(e)
+                    import traceback
+                    printl(traceback.format_exc(),self,"E")
                     
 # Vielleicht a als Variable bergeben
 # Wenn args=retzunValue kommt Greenscreen

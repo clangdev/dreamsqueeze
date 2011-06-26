@@ -9,12 +9,16 @@ def main(session, **kwargs):
       
 
        
-def Plugins(**kwargs):
-    return PluginDescriptor(
-                            name="DreamSqueeze",
-                            description="Squeezebox Client-Player",
-                            where=PluginDescriptor.WHERE_PLUGINMENU,
-                            icon="plugin.png",
-                            fnc=main
-                            )
+#def Plugins(**kwargs):
+#    return PluginDescriptor(
+#                            name="DreamSqueeze",
+#                            description="Squeezebox Client-Player",
+#                            where=PluginDescriptor.WHERE_PLUGINMENU,
+#                            icon="plugin.png",
+#                            fnc=main
+#                            )
         
+def Plugins(**kwargs):
+    list = [PluginDescriptor(name="DreamSqueeze", description=_("DreamSqueeze"), where = [PluginDescriptor.WHERE_PLUGINMENU], icon="plugin.png", fnc=main)]
+    list.append(PluginDescriptor(name=_("DreamSqueeze"), where = PluginDescriptor.WHERE_EXTENSIONSMENU, fnc=main))
+    return list

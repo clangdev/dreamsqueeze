@@ -150,6 +150,7 @@ class SBSCLIInterface:
                 response=self.utf8ToNormal(response)
                 tn.close()
                 index = 0
+                lasttracknum=0
                 while index > -1:
                     von = response.find(" id:", index) + 4
                     to = response.find(" title:", von)

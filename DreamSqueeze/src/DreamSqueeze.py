@@ -11,10 +11,10 @@ from twisted.internet import reactor
 
 
 class DreamSqueeze(Screen):
-    skin = """<screen position="center,center" size="1024,576" title="" flags="wfNoBorder">
-               <widget name="playername" position="0,0" size="1024,40" zPosition="2" valign=\"center\" halign=\"left\" foregroundColor=\"white\" font=\"Regular;20\" />
-                <widget name="mainmenulist" position="0,40" size="1024,496" zPosition="2" scrollbarMode="showOnDemand" />
-                <widget name="statusbar" position="0,536" size="1024,40" zPosition="2" valign=\"center\" halign=\"left\" foregroundColor=\"white\" font=\"Regular;20\" />
+    skin = """<screen position="center,center" size="800,600" title="" flags="wfNoBorder">
+               <widget name="playername" position="0,0" size="800,40" zPosition="2" valign=\"center\" halign=\"left\" foregroundColor=\"white\" font=\"Regular;20\" />
+                <widget name="mainmenulist" position="0,40" size="800,520" zPosition="2" scrollbarMode="showOnDemand" />
+                <widget name="statusbar" position="0,560" size="800,40" zPosition="2" valign=\"center\" halign=\"left\" foregroundColor=\"white\" font=\"Regular;20\" />
               </screen>"""
 
     def __init__(self, session, args=0):
@@ -23,7 +23,7 @@ class DreamSqueeze(Screen):
         self.oldService = self.session.nav.getCurrentlyPlayingServiceReference()
         if config.useLogin() is True:
             try:
-                url = "http://"+config.getUsername()+":"+config.getPassword()+"@" + config.getHost() + ":" + str(config.getPort()) + "/stream.mp3?bitrate=96"
+                url = "http://" + config.getUsername() + ":" + config.getPassword() + "@" + config.getHost() + ":" + str(config.getPort()) + "/stream.mp3?bitrate=96"
                 reactor.callLater(1, self._delayedPlay, eServiceReference(4097, 0, url))
                 #self.session.nav.playService(eServiceReference(4097, 0, url))
             except Exception, e:
@@ -31,7 +31,9 @@ class DreamSqueeze(Screen):
         else:
             try:
                 url = "http://" + config.getHost() + ":" + str(config.getPort()) + "/stream.mp3?bitrate=96"
+                printl("starting Stream:" + url)
                 reactor.callLater(1, self._delayedPlay, eServiceReference(4097, 0, url))
+                printl("stream should be started")
                 #self.session.nav.playService(eServiceReference(4097, 0, url))
             except Exception, e:
                 printl(e)
@@ -89,6 +91,7 @@ class DreamSqueeze(Screen):
         
         
         
+    
 
 
 

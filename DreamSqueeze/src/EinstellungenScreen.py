@@ -16,7 +16,7 @@ class EinstellungenScreen(Screen):
     def __init__(self, session, args=0):
         self.session = session
         mainmenulist = []
-        mainmenulist.append(("Squeezebox-Name", "loadSqueezeboxNameScreen"))
+        #mainmenulist.append(("Squeezebox-Name", "loadSqueezeboxNameScreen"))
         #mainmenulist.append(("Player waehlen", "loadPlayerwaehlenScreen"))
         #mainmenulist.append(("Synchronisieren", "loadSynchronisierenScreen"))
         mainmenulist.append(("Erweitert", "loadErweitertScreen"))

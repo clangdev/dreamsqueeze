@@ -23,14 +23,22 @@ class DreamSqueeze(Screen):
         self.oldService = self.session.nav.getCurrentlyPlayingServiceReference()
         if config.useLogin() is True:
             try:
-                url = "http://" + config.getUsername() + ":" + config.getPassword() + "@" + config.getHost() + ":" + str(config.getPort()) + "/stream.mp3?bitrate=96"
+                url = "http://" + config.getUsername() + ":" + config.getPassword() + "@" + config.getHost() + ":" + str(config.getPort()) + "/stream.mp3"
+                printl("stopping current Service")
+                self.session.nav.stopService()
+                strpass=""
+                for char in config.getPassword():
+                    strpass=strpass+"*"
+                printl("starting Stream:" + "http://" + config.getUsername() + ":" + strpass + "@" + config.getHost() + ":" + str(config.getPort()) + "/stream.mp3")
                 reactor.callLater(1, self._delayedPlay, eServiceReference(4097, 0, url))
                 #self.session.nav.playService(eServiceReference(4097, 0, url))
             except Exception, e:
                 printl(e)
         else:
             try:
-                url = "http://" + config.getHost() + ":" + str(config.getPort()) + "/stream.mp3?bitrate=96"
+                url = "http://" + config.getHost() + ":" + str(config.getPort()) + "/stream.mp3"
+                printl("stopping current Service")
+                self.session.nav.stopService()
                 printl("starting Stream:" + url)
                 reactor.callLater(1, self._delayedPlay, eServiceReference(4097, 0, url))
                 printl("stream should be started")
@@ -44,8 +52,8 @@ class DreamSqueeze(Screen):
         mainmenulist = []
         if str(config.getHost()) != "":
             mainmenulist.append(("Eigene Musik", "loadPersonalMusicScreen"))
-            mainmenulist.append(("Internetradio", "loadInternetRadioScreen"))
-            mainmenulist.append(("Favoriten", "loadFavoritesScreen"))
+            #mainmenulist.append(("Internetradio", "loadInternetRadioScreen"))
+            #mainmenulist.append(("Favoriten", "loadFavoritesScreen"))
         mainmenulist.append(("Einstellungen", "loadSettingsScreen"))
         Screen.__init__(self, session)
         

@@ -223,16 +223,27 @@ class SBSCLIInterface:
             tn.close()
             if self.config.useLogin() is True:
                 try:
-                    url = "http://"+self.config.getUsername()+":"+self.config.getPassword()+"@" + self.config.getHost() + ":" + str(self.config.getPort()) + "/stream.mp3?bitrate=96"
+                    printl("stopping current Service")
+                    self.session.nav.stopService()
+                    url = "http://"+self.config.getUsername()+":"+self.config.getPassword()+"@" + self.config.getHost() + ":" + str(self.config.getPort()) + "/stream.mp3"
+                    strpass=""
+                    for char in self.config.getPassword():
+                        strpass=strpass+"*"
+                    printl("starting Stream:" + "http://" + self.config.getUsername() + ":" + strpass + "@" + self.config.getHost() + ":" + str(self.config.getPort()) + "/stream.mp3")
                     reactor.callLater(1, self._delayedPlay, eServiceReference(4097, 0, url))
                     #self.session.nav.playService(eServiceReference(4097, 0, url))
+                    printl("stream should be started")
                 except Exception, e:
                     printl(e)
                     raise e
             else:
                 try:
-                    url = "http://" + self.config.getHost() + ":" + str(self.config.getPort()) + "/stream.mp3?bitrate=96"
+                    printl("stopping current Service")
+                    self.session.nav.stopService()
+                    url = "http://" + self.config.getHost() + ":" + str(self.config.getPort()) + "/stream.mp3"
+                    printl("starting Stream:" + url)
                     reactor.callLater(1, self._delayedPlay, eServiceReference(4097, 0, url))
+                    printl("stream should be started")
                     #self.session.nav.playService(eServiceReference(4097, 0, url))
                 except Exception, e:
                     printl(e)

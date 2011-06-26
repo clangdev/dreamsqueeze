@@ -5,7 +5,9 @@ from Components.config import config, ConfigSubsection, ConfigInteger, \
 
        
 class DreamSqueezeConfig():
+
    
+       
     def __init__(self, session, args=0):
         self.session = session
         config.plugins.DreamSqueeze = ConfigSubsection()
@@ -45,4 +47,5 @@ class DreamSqueezeConfig():
     
     def useLogin(self):
         return config.plugins.DreamSqueeze.useLogin.value
-        
+    
+    

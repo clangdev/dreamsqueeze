@@ -1,0 +1,1 @@
+Plugin for Dreambox (Enigma2) which streams the remote mp3-stream from a squeezebox server and can control the stream over the CLI (commandline interface) of the Squeezebox Server.
